@@ -14,12 +14,11 @@
 
 object Fractiles extends App {
 	def tileFinder(K: Int, C: Int, S: Int): List[BigInt] = {
-		// i*K^(C-1)+2
-		val factor = BigInt(K).pow(C-1)
-		K match {
-			case S => (1 to K).map(i => BigInt(i)).toList
-			case _ if (S * 2 <= K) => List()
-			case _ => (0 until K by 2).map(i => i * factor + 2).toList
+		if (S * C < K) List()
+		else {
+			(1 to K by C).map(i => {
+				(0 until C).foldLeft(BigInt(1))((p, j) => (p-1) * K + Math.min(i+j, K))
+			}).toList
 		}
 	}
 
