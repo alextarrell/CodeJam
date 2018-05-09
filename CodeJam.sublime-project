@@ -4,13 +4,40 @@
 		{
 			"file_exclude_patterns":
 			[
-				".*"
-			],
-			"folder_exclude_patterns":
-			[
-				".*"
+				".gitignore"
 			],
 			"path": "."
 		}
-	]
+	],
+	"build_systems":
+    [
+        {
+            "name": "CodeJam Test Check - Python",
+            "working_dir": "$file_path",
+            "selector": "source.python",
+            "shell_cmd": "cat sample_input.txt | python \"$file_name\" | diff -sy - sample_output.txt",
+            "quiet": true
+        },
+        {
+            "name": "CodeJame Test - Python",
+            "working_dir": "$file_path",
+            "selector": "source.python",
+            "shell_cmd": "cat sample_input.txt; echo \"=======================\"; cat sample_input.txt | python \"$file_name\"",
+            "quiet": false
+        },
+        {
+        	"name": "CodeJame Testing Tool - Python",
+        	"working_dir": "$file_path",
+            "selector": "source.python",
+        	"shell_cmd": "python testing_tool.py python \"$file_name\"",
+        	"quiet": false
+        },
+        {
+            "name": "CodeJame Test - Java",
+            "working_dir": "$file_path",
+            "selector": "source.java",
+            "shell_cmd": "cat sample_input.txt; echo \"=======================\"; javac \"$file_name\"; cat sample_input.txt | java \"$file_base_name\"; rm \"${file_base_name}.class\"",
+            "quiet": false
+        }
+    ]
 }
